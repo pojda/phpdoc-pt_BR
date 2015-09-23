@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 337779 Maintainer: ae Status: wip --><!-- CREDITS: felipe,ae,klaussilveira --><!-- Comparar contra 326002 para ter noção de revisar/a fazer -->
+<!-- EN-Revision: 337881 Maintainer: ae Status: wip --><!-- CREDITS: felipe,ae,klaussilveira --><!-- Comparar contra 326002 para ter noção de revisar/a fazer -->
 <!-- Keep 'em sorted -->
 
 <!ENTITY changelog.randomseed '<row xmlns="http://docbook.org/ns/docbook"><entry>4.2.0</entry><entry>O gerador
