@@ -5,13 +5,14 @@
     <refname>dirname</refname>
     <refpurpose>Retorna o caminho/path do diretório pai</refpurpose>
    </refnamediv>
+
    <refsect1 role="description">
     &reftitle.description;
      <methodsynopsis>
       <type>string</type><methodname>dirname</methodname>
-      <methodparam><type>string</type><parameter>path</parameter></methodparam>
-     </methodsynopsis>
-    <methodparam choice="opt"><type>int</type><parameter>levels</parameter><initializer>1</initializer></methodparam>
+      <methodparam><type>string</type><parameter>path</parameter></methodparam>     
+      <methodparam choice="opt"><type>int</type><parameter>levels</parameter><initializer>1</initializer></methodparam>
+    </methodsynopsis>
     <para>
      Dada uma string contendo um caminho para um arquivo ou diretório, esta função
      irá retornar o caminho do diretório pai que é 
@@ -27,42 +28,42 @@
      <term><parameter>path</parameter></term>
      <listitem>
       <para>
-     Um caminho.
-        </para>
-        <para>
-         No Windows, tanto barra (<literal>/</literal>) quanto a
-         barra invertida (<literal>\</literal>) são usadas como caracter
-         separador no path. Em outros ambientes é utilizado a barra
-         (<literal>/</literal>).
-    </para>
+       Um caminho.
+      </para>
+      <para>
+       No Windows, tanto barra (<literal>/</literal>) quanto a
+       barra invertida (<literal>\</literal>) são usadas como caracter
+       separador no path. Em outros ambientes é utilizado a barra (<literal>/</literal>).
+      </para>
      </listitem>
     </varlistentry>
-     <varlistentry>
-      <term><parameter>levels</parameter></term>
-      <listitem>
-       <para>
-        O número de diretórios pai para subir.
-       </para>
-       <para>
-        Deve ser um inteiro maior que 0.
-       </para>
-      </listitem>
-     </varlistentry>    
+    <varlistentry>
+     <term><parameter>levels</parameter></term>
+     <listitem>
+      <para>
+       O número de diretórios pai para subir.
+      </para>
+      <para>
+       Deve ser um inteiro maior que 0.
+      </para>
+     </listitem>
+    </varlistentry>    
    </variablelist>
   </para>
-   </refsect1>
+  </refsect1>
 
    <refsect1 role="returnvalues">
     &reftitle.returnvalues;
-  <para>
+    <para>
      Retorna o caminho do diretório pai. Se não houver nenhuma barra no
-   <parameter>path</parameter>, um ponto ('<literal>.</literal>') é retornado,
-   indicando o diretório atual. Do contrário, a string retornada é o
-   <parameter>path</parameter> com qualquer <literal>/componente</literal>
-   adjacente removido.
-  </para>
-   </refsect1>
-   <refsect1 role="changelog">
+     <parameter>path</parameter>, um ponto ('<literal>.</literal>') é retornado,
+     indicando o diretório atual. Do contrário, a string retornada é o
+     <parameter>path</parameter> com qualquer <literal>/componente</literal>
+     adjacente removido.
+    </para>
+  </refsect1>
+
+  <refsect1 role="changelog">
     &reftitle.changelog;
     <para>
      <informaltable>
@@ -104,7 +105,6 @@
  echo dirname("/etc/") . PHP_EOL;
  echo dirname(".") . PHP_EOL;
  echo dirname("/usr/local/lib", 2);
-?>
 ]]>
       </programlisting>
      &example.outputs.similar;
@@ -173,9 +173,9 @@ dirname('/x'); // retorna '\'
       <member><function>pathinfo</function></member>
       <member><function>realpath</function></member>
      </simplelist>
-  </para>
+    </para>
    </refsect1>
-  </refentry>
+</refentry>
 
 <!-- Keep this comment at the end of the file
 Local variables:
