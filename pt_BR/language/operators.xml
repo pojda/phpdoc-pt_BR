@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: n/a Maintainer: felipe Status: ready -->
+<!-- EN-Revision: 338190 Maintainer: ae Status: wip --><!-- CREDITS: felipe,ae -->
  <chapter xml:id="language.operators" xmlns="http://docbook.org/ns/docbook">
   <title>Operadores</title>
   <simpara>
    Um operador é algo que você alimenta com um ou mais valores (ou
    expressões, no jargão de programação) e que devolve outro valor (e por isso
-   os próprios construtores se tormam expressões). Assim, você pode pensar que as funções
-   e os construtores que retornam valores (como o print) são operadores e os outros
-   que não retornam nada (como echo) como uma outra coisa.
+   os próprios construtores se tormam expressões).
   </simpara>
   <para>
-   Há três tipos de operadores. Primeiramente, os operadores unários, que
-   operam em apenas um valor. Por exemplo, ! (operador de negação) ou o ++
-   (operador de incremento). No segundo grupo estão os operadores binários, o
-   o grupo que contém a maioria dos operadores que o PHP suporta, com uma lista
-   completa logo abaixo na seção <link linkend="language.operators.precedence">Precedência
-   de operadores</link>.
+   Operadores podem ser agrupados segundo o número de valores que aceitam. Operadores
+   unários operam em um único valor, por exemplo <literal>!</literal> (o
+   <link linkend="language.operators.logical">operador lógico de negação</link>) ou
+   <literal>++</literal> (o
+   <link linkend="language.operators.increment">operador de incremento</link>).
+   Operadores binários aceitam dois valores, como os
+   <link linkend="language.operators.arithmetic">operadores matemáticos</link>
+   <literal>+</literal> (soma) e <literal>-</literal> (subtração), além
+   da maioria dos operadores PHP dessa categoria. Finalmente há um
+   único <link linkend="language.operators.comparison.ternary">operador
+   ternário</link>, <literal>? :</literal>, o qual aceita três valores; normalmente
+   conhecido simplesmente como "o operador ternário" (embora um
+   nome melhor fosse operador condicional).
   </para>
   <para>
-   O terceiro grupo é do operador ternário: ?:. Ele pode ser usado para selecionar
-   entre dois valores dependendo de uma terceira, em vez de selecionar duas
-   sentenças ou encadeamentos de execução. Englobar expressões ternárias com
-   parênteses é uma boa idéia.
+   A lista completa dos operadores no PHP está na seção
+   <link linkend="language.operators.precedence">sobre precedência de operadores</link>.
+   Essa seção também explica precedência e combinações, que governam
+   exatamente como expressões contendo vários operadores são
+   avaliados.
   </para>
 
   <sect1 xml:id="language.operators.precedence">
@@ -34,8 +40,27 @@
     tem prioridade de precedência que o operador de adição ("+").
     Parênteses podem ser utilizados para forçar a precedência, se necessário.
     Assim, <literal>(1 + 5) * 3</literal> é avaliado como
-    <literal>18</literal>. Se a precedência do operador é igual, a associatividade
-    da esquerda para direita é usada.
+    <literal>18</literal>.
+   </para>
+   <para>
+    Quando operadores tem precedência igual a associatividade decide
+    como os operadores são agrupados. Por exemplo "-" é associado à esquerda, de forma que
+    <literal>1 - 2 - 3</literal> é agrupado como <literal>(1 - 2) - 3</literal>
+    e resulta em <literal>-4</literal>. "=" por outro lado
+    associa para a direita, de forma que <literal>$a = $b = $c</literal> é agrupado como
+    <literal>$a = ($b = $c)</literal>.
+   </para>
+   <para>
+    Operadores de igual precedência sem associatividade não podem
+    ser utilizados uns colados em outros. Por exemplo <literal>1 &lt; 2 &gt; 1</literal> é
+    ilegal no PHP. A expressão <literal>1 &lt;= 1 == 1</literal> por outro
+    lado é válida, porque o operador <literal>==</literal> tem menor
+    precedência que o operador <literal>&lt;=</literal>.
+   </para>
+   <para>
+    O uso de parenteses, embora não estritamente necessário, pode melhorar
+    a interpretação do código ao deixar o agrupamento explícito em vez de depender
+    da associatividade e precedências implícitos.
    </para>
    <para>
     A tabela seguinte mostra a precedência dos operadores, da maior
@@ -54,115 +79,157 @@
       <tbody>
        <row>
         <entry>não associativo</entry>
-        <entry>clone new</entry>
+        <entry>
+         <literal>clone</literal>
+         <literal>new</literal>
+        </entry>
         <entry><link linkend="language.oop5.cloning">clone</link> e <link linkend="language.oop5.basic.new">new</link></entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>[</entry>
+        <entry><literal>[</literal></entry>
         <entry><function>array</function></entry>
        </row>
        <row>
-        <entry>não associativo</entry>
-        <entry>++ --</entry>
+        <entry>direita</entry>
+        <entry><literal>**</literal></entry>
+        <entry><link linkend="language.operators.arithmetic">aritmética</link></entry>
+       </row>
+       <row>
+        <entry>direita</entry>
         <entry>
-         <link linkend="language.operators.increment">incremento/decremento</link>
+         <literal>++</literal> 
+         <literal>--</literal> 
+         <literal>~</literal> 
+         <literal>(int)</literal> 
+         <literal>(float)</literal> 
+         <literal>(string)</literal> 
+         <literal>(array)</literal>
+         <literal>(object)</literal> 
+         <literal>(bool)</literal> 
+         <literal>@</literal>
+        </entry>
+        <entry>
+         <link linkend="language.types">types</link> e <link linkend="language.operators.increment">incremento/decremento</link>
         </entry>
        </row>
        <row>
         <entry>não associativo</entry>
-        <entry>~ - (int) (float) (string) (array) (object) (bool) @</entry>
-        <entry>
-         <link linkend="language.types">tipos</link>
-        </entry>
-       </row>
-       <row>
-        <entry>não associativo</entry>
-        <entry>instanceof</entry>
+        <entry><literal>instanceof</literal></entry>
         <entry>
          <link linkend="language.types">tipos</link>
         </entry>
        </row>
        <row>
         <entry>direita</entry>
-        <entry>!</entry>
+        <entry><literal>!</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>* / %</entry>
         <entry>
-         <link linkend="language.operators.arithmetic">aritmético</link>
+         <literal>*</literal>
+         <literal>/</literal>
+         <literal>%</literal>
+        </entry>
+        <entry>
+         <link linkend="language.operators.arithmetic">aritmética</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>+ - .</entry>
         <entry>
-         <link linkend="language.operators.arithmetic">aritmético</link>&listendand;
+         <literal>+</literal> 
+         <literal>-</literal> 
+         <literal>.</literal>
+        </entry>
+        <entry>
+         <link linkend="language.operators.arithmetic">aritmética</link>&listendand;
          <link linkend="language.operators.string">string</link></entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>&lt;&lt; &gt;&gt;</entry>
         <entry>
-         <link linkend="language.operators.bitwise">Bit-a-bit</link>
+         <literal>&lt;&lt;</literal> 
+         <literal>&gt;&gt;</literal>
+        </entry>
+        <entry>
+         <link linkend="language.operators.bitwise">bits</link>
         </entry>
        </row>
        <row>
         <entry>não associativo</entry>
-        <entry>&lt; &lt;= &gt; &gt;= &lt;&gt;</entry>
+        <entry>
+         <literal>&lt;</literal> 
+         <literal>&lt;=</literal> 
+         <literal>&gt;</literal> 
+         <literal>&gt;=</literal>
+        </entry>
         <entry>
          <link linkend="language.operators.comparison">comparação</link>
         </entry>
        </row>
        <row>
         <entry>não associativo</entry>
-        <entry>== != === !==</entry>
+        <entry>
+         <literal>==</literal>
+         <literal>!=</literal> 
+         <literal>===</literal> 
+         <literal>!==</literal> 
+         <literal>&lt;&gt;</literal>
+         <literal>&lt;=&gt;</literal>
+        </entry>
         <entry>
          <link linkend="language.operators.comparison">comparação</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>&amp;</entry>
+        <entry><literal>&amp;</literal></entry>
         <entry>
-         <link linkend="language.operators.bitwise">Bit-a-bit</link>&listendand;
+         <link linkend="language.operators.bitwise">bits</link>&listendand;
          <link linkend="language.references">referências</link></entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>^</entry>
+        <entry><literal>^</literal></entry>
         <entry>
-         <link linkend="language.operators.bitwise">Bit-a-bit</link>
+         <link linkend="language.operators.bitwise">bits</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>|</entry>
+        <entry><literal>|</literal></entry>
         <entry>
-         <link linkend="language.operators.bitwise">Bit-a-bit</link>
+         <link linkend="language.operators.bitwise">bits</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>&amp;&amp;</entry>
+        <entry><literal>&amp;&amp;</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>||</entry>
+        <entry><literal>||</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
+        </entry>
+       </row>
+       <row>
+        <entry>direita</entry>
+        <entry><literal>??</literal></entry>
+        <entry>
+         <link linkend="language.operators.comparison">comparação</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>? :</entry>
+        <entry><literal>? :</literal></entry>
         <entry>
          <link linkend="language.operators.comparison.ternary">ternário</link>
         </entry>
@@ -170,51 +237,63 @@
        <row>
         <entry>direita</entry>
         <entry>
-         = += -= *= /= .= %= &amp;= |= ^= &lt;&lt;= &gt;&gt;=
+         <literal>=</literal> 
+         <literal>+=</literal> 
+         <literal>-=</literal> 
+         <literal>*=</literal> 
+         <literal>**=</literal> 
+         <literal>/=</literal> 
+         <literal>.=</literal> 
+         <literal>%=</literal> 
+         <literal>&amp;=</literal> 
+         <literal>|=</literal> 
+         <literal>^=</literal> 
+         <literal>&lt;&lt;=</literal> 
+         <literal>&gt;&gt;=</literal>
+         <literal>=&gt;</literal>
         </entry>
         <entry>
-         <link linkend="language.operators.assignment">atribuição</link>
+         <link linkend="language.operators.assignment">modificação</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>and</entry>
+        <entry><literal>and</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>xor</entry>
+        <entry><literal>xor</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>or</entry>
+        <entry><literal>or</literal></entry>
         <entry>
-         <link linkend="language.operators.logical">lógico</link>
+         <link linkend="language.operators.logical">lógicos</link>
         </entry>
        </row>
        <row>
         <entry>esquerda</entry>
-        <entry>,</entry>
-        <entry>muitos usos</entry>
+        <entry><literal>,</literal></entry>
+        <entry>many uses</entry>
        </row>
       </tbody>
      </tgroup>
     </table>
    </para>
    <para>
-    Associatividade a esquerda significa que a expressão é avaliada da esquerda para direita,
-    associatividade a direita o oposto.
     <example>
      <title>Associatividade</title>
      <programlisting role="php">
 <![CDATA[
 <?php
 $a = 3 * 3 % 5; // (3 * 3) % 5 = 4
+// associatividade do operador ternário difere do C/C++
 $a = true ? 0 : true ? 1 : 2; // (true ? 0 : true) ? 1 : 2 = 2
 
 $a = 1;
@@ -224,15 +303,36 @@ $a = $b += 3; // $a = ($b += 3) -> $a = 5, $b = 5
 ]]>
      </programlisting>
     </example>
-    Use parênteses para aumenta a legibilidade do código.
+   </para>
+   <para>
+    Precedência e associatividade apenas determinam como as expressões são
+    agrupadas, mas não especificam a ordem de avaliação. O PHP
+    (geralmente) não especifica em que ordem as expressões são avaliadas
+    e códigos que assumem ordens específicas de avaliação devem ser evitados
+    porque o comportamento pode ser alterado entre versões do PHP ou dependendo
+    do código em volta.
+    <example>
+     <title>Ordem de avaliação não é definida</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+$a = 1;
+echo $a + $a++; // pode imprimir 2 ou 3
+
+$i = 1;
+$array[$i] = $i++; // pode definir o índice 1 ou 2
+?>
+]]>
+     </programlisting>
+    </example>
    </para>
    <note>
     <para>
-     Mesmo tendo <literal>=</literal> menor precedência que
-     que outros operadores, o PHP ainda permitirá expressões
-     similares à seguinte: <literal>if (!$a = foo())</literal>,
-     que no caso o retorno de <literal>foo()</literal> é
-     recebido em <varname>$a</varname>.
+     Embora <literal>=</literal> tenha uma precedência menor que
+     a maioria dos operadores, o PHP ainda permite expressões
+     similares a <literal>if (!$a = foo())</literal>,
+     as quais o valor retornado de <literal>foo()</literal> é
+     colocado em <varname>$a</varname>.
     </para>
    </note>
   </sect1>
@@ -257,55 +357,74 @@ $a = $b += 3; // $a = ($b += 3) -> $a = 5, $b = 5
       <row>
        <entry>-$a</entry>
        <entry>Negação</entry>
-       <entry>Oposto de $a.</entry>
+       <entry>Oposto de <varname>$a</varname>.</entry>
       </row>
       <row>
        <entry>$a + $b</entry>
        <entry>Adição</entry>
-       <entry>Soma de $a e $b.</entry>
+       <entry>Soma de <varname>$a</varname> e <varname>$b</varname>.</entry>
       </row>
       <row>
        <entry>$a - $b</entry>
        <entry>Subtração</entry>
-       <entry>Diferença entre $a e $b.</entry>
+       <entry>Diferença entre <varname>$a</varname> e <varname>$b</varname>.</entry>
       </row>
       <row>
        <entry>$a * $b</entry>
        <entry>Multiplicação</entry>
-       <entry>Produto de $a e $b.</entry>
+       <entry>Produto de <varname>$a</varname> e <varname>$b</varname>.</entry>
       </row>
       <row>
        <entry>$a / $b</entry>
        <entry>Divisão</entry>
-       <entry>Quociente de $a por $b.</entry>
+       <entry>Quociente de <varname>$a</varname> e <varname>$b</varname>.</entry>
       </row>
       <row>
        <entry>$a % $b</entry>
        <entry>Módulo</entry>
-       <entry>Resto de $a dividido por $b.</entry>
+       <entry>Resto de <varname>$a</varname> dividido por <varname>$b</varname>.</entry>
+      </row>
+      <row>
+       <entry>$a ** $b</entry>
+       <entry>Exponenciação</entry>
+       <entry>Resultado de <varname>$a</varname> exponenciado a <varname>$b</varname>. Introduzido no PHP 5.6.</entry>
       </row>
      </tbody>
     </tgroup>
    </table>
-    <simpara>
+   <simpara>
     O operador de divisão ("/") sempre retorna um valor com ponto flutuante,
     a não ser que os dois operados seja inteiros (ou strings que são convertidas para inteiros)
     e numéros inteiramente divisíveis, em outro caso um inteiro é retornado.
    </simpara>
    <simpara>
     Operandos de módulo são convertidos para inteiros (removendo a parte decimal) 
-    antes de processar.
+    antes do processamento.
    </simpara>
-   <note>
-    <simpara>
-     O resto de <literal>$a % $b</literal> é negativo se <literal>$a</literal>
-     for negativo.
-    </simpara>
-   </note>
+   <para>
+    O resultado do operador de módulo <literal>%</literal> tem o mesmo sinal
+    do divivendo — ou seja, o resultado de <literal>$a % $b</literal>
+    terá o mesmo sinal de <varname>$a</varname>. Exemplos:
+    <informalexample>
+     <programlisting role="php">
+<![CDATA[
+<?php
+
+echo (5 % 3)."\n";           // imprime 2
+echo (5 % -3)."\n";          // imprime 2
+echo (-5 % 3)."\n";          // imprime -2
+echo (-5 % -3)."\n";         // imprime -2
+
+?>
+]]>
+     </programlisting>
+    </informalexample>
+   </para>
    <simpara>
-    Veja também a página do manual
+    Veja também a página do manual sobre
     <link linkend="ref.math">funções matemáticas</link>.
    </simpara>
+
   </sect1>
 
   <sect1 xml:id="language.operators.assignment">
@@ -333,6 +452,11 @@ $a = ($b = 4) + 5; // $a é igual a 9 agora e $b foi configurado como 4.
     </informalexample>
    </para>
    <para>
+    Nos <type>arrays</type> a assimilação de valores numa chave nomeada é realizada utilizando-se
+    o operador "=&gt;". A <link linkend="language.operators.precedence">precedência</link>
+    deste operador é o mesmo dos outros operadores de atribuição.
+   </para>
+   <para>
     Além do operador básico de atribuição, há "operadores
     combinados" para todos os <link linkend="language.operators">operadores
     aritméticos</link>, de array e string que permitem a você pegar um valor de uma
@@ -357,50 +481,83 @@ $b .= "Dia!"; // configura $b para "Bom Dia!", como em $b = $b . "Dia!";
     Note que a atribuição copia a variável original para a nova
     (atribuição por valor), assim a mudança de uma não afeta a
     outra. Isto pode ter relevância se você precisa copiar algo
-    como uma grande matriz dentro de um loop longo. Atribuições
-    por referência é também suportada, usando a sintaxe <computeroutput>$var =
-    &amp;$outra_var;</computeroutput>. 
-    'Atribuição por referência' significa que ambas as variáveis
-    acabam apontando para os mesmos dados, e nada é copiado para lugar nenhum.
-    Para aprender mais sobre referências, leia <link
-    linkend="language.references">Referências explicadas</link>. No 
-    PHP 5, objetos são atribuídos por referência a menos que explícitamente feito
-    o contrário com a nova palavra chave <link linkend="language.oop5.cloning">clone</link>.
+    como uma grande matriz dentro de um loop longo.
    </para>
+   <para>
+    Uma exceção ao comportamento geral de atribuição ocorre
+    com <type>objeto</type>s, que são atribuídos por referência no PHP 5.
+    Objetos podem ser explicitamente copiados através da instrução <link
+    linkend="language.oop5.cloning">clone</link>.
+   </para>
+   
+   <sect2 xml:id="language.operators.assignment.reference">
+    <title>Atribuição por referência</title>
+    <para>
+     Atribuição por referência também é possível, utilizando-se a sintaxe
+     "<computeroutput>$var = &amp;$othervar;</computeroutput>".
+     A atribuição por referência significa que ambas as variáveis apontam
+     para o mesmo dado, e nada é copiado.
+    </para>
+    <para>
+     <example>
+      <title>Atribuição por referência</title>
+      <programlisting role="php">
+<![CDATA[
+<?php
+$a = 3;
+$b = &$a; // $b é uma referência de $a
+
+print "$a\n"; // imprime 3
+print "$b\n"; // imprime 3
+
+$a = 4; // modificamos $a
+
+print "$a\n"; // imprime 4
+print "$b\n"; // imprime 4 também, pois $b é uma referência de $a, que foi
+              // modificada
+?>
+]]>
+      </programlisting>
+     </example>
+    </para>
+    <para>
+     A partir do PHP o operador <link linkend="language.oop5.basic.new">new</link>
+     retorna uma referência automaticamente, de forma que a assimulação de um resultado de
+     <link linkend="language.oop5.basic.new">new</link> gera um alerta
+     <constant>E_DEPRECATED</constant> no PHP 5.3 e posteriores, e
+     um alerta <constant>E_STRICT</constant> nas versões anteriores.
+    </para>
+    <para>
+     Por exemplo, esse código gerá um alerta:
+     <informalexample>
+      <programlisting role="php">
+<![CDATA[
+<?php
+class C {}
+
+/* A linha seguinte gera a mensagem:
+ * Deprecated: Assigning the return value of new by reference is deprecated in...
+ */
+$o = &new C;
+?>
+]]>
+      </programlisting>
+     </informalexample>
+    </para>
+    <para>
+     Mais informações sobre referências se seus usos potenciais podem ser encontrados
+     na seção <link linkend="language.references">Explicando Referências</link>
+     do manual.
+    </para>
+   </sect2>
   </sect1>
 
   <sect1 xml:id="language.operators.bitwise">
-   <title>Operador Bit-a-bit</title>
+   <title>Operadores bit a bit</title>
    <simpara>
-    Operadores bit-a-bit permitem que você acione ou desligue bits específicos dentro
-    de um inteiro. Se ambos os parâmetros da esquerda e da direita forem
-    strings, esses operadores irão trabalhar nos valores ASCII dos caracteres.
+    Operadores bit-a-bit permitem a avaliação e modificação de bits
+    específicos em um tipo inteiro.
    </simpara>
-   <para>
-    <informalexample>
-     <programlisting role="php">
-<![CDATA[
-<?php
-echo 12 ^ 9; // Imprime '5'
-
-echo "12" ^ "9"; // Imprime o caracter de volta (backspace - ASCII 8)
-                 // ('1' (ASCII 49)) ^ ('9' (ASCII 57)) = #8
-
-echo "hallo" ^ "hello"; // Imprime os valores ASCII #0 #4 #0 #0 #0
-                        // 'a' ^ 'e' = #4
-
-echo 2 ^ "3"; // Imprime '1'
-// 2 ^ ((int)"3") == 1
-
-echo "2" ^ 3; // Imprime '1'
-// ((int)"2") ^ 3 == 1
-
-?>
-]]>
-     </programlisting>
-    </informalexample>
-   </para>
-
    <table>
     <title>Operadores Bit-a-bit</title>
     <tgroup cols="3">
@@ -413,54 +570,653 @@ echo "2" ^ 3; // Imprime '1'
      </thead>
      <tbody>
       <row>
-       <entry>$a &amp; $b</entry>
+       <entry><userinput>$a &amp; $b</userinput></entry>
        <entry>E</entry>
-       <entry>Os bits que estão ativos tanto em $a quanto em $b são ativados.</entry>
+       <entry>Os bits que estão ativos tanto em <varname>$a</varname> quanto em <varname>$b</varname> são ativados.</entry>
       </row>
       <row>
-       <entry>$a | $b</entry>
+       <entry><userinput>$a | $b</userinput></entry>
        <entry>OU</entry>
-       <entry>Os bits que estão ativos em $a ou em $b são ativados.</entry>
+       <entry>Os bits que estão ativos em <varname>$a</varname> ou em $b são ativados.</entry>
       </row>
       <row>
-       <entry>$a ^ $b</entry>
+       <entry><userinput>$a ^ $b</userinput></entry>
        <entry>XOR</entry>
        <entry>
-        Os bits que estão ativos em $a ou em $b, mas não em ambos, são ativados.
+        Os bits que estão ativos em <varname>$a</varname> ou em <varname>$b</varname>, mas não em ambos, são ativados.
        </entry>
       </row>
       <row>
-       <entry>~ $a</entry>
+       <entry><userinput>~ $a</userinput></entry>
        <entry>NÃO</entry>
        <entry>
-        Os bits que estão ativos em $a não são ativados, e vice-versa.
+        Os bits que estão ativos em <varname>$a</varname> não são ativados, e vice-versa.
        </entry>
       </row>
       <row>
-       <entry>$a &lt;&lt; $b</entry>
+       <entry><userinput>$a &lt;&lt; $b</userinput></entry>
        <entry>Deslocamento à esquerda</entry>
        <entry>
-        Desloca os bits de $a $b passos para a esquerda (cada passo significa
+        Desloca os bits de <varname>$a</varname> $b passos para a esquerda (cada passo significa
         "multiplica por dois")
        </entry>
       </row>
       <row>
-       <entry>$a &gt;&gt; $b</entry>
+       <entry><userinput>$a &gt;&gt; $b</userinput></entry>
        <entry>Deslocamento à direita</entry>
        <entry>
-        Desloca os bits de $a $b passos para a direita (cada passo significa
+        Desloca os bits de <varname>$a</varname> $b passos para a direita (cada passo significa
         "divide por dois")
        </entry>
       </row>
      </tbody>
     </tgroup>
    </table>
+   <para>
+    O deslocamento de bits no PHP é aritmético.
+    Bits deslocados no lado final são descartados.
+    Deslocamentos a esquerda tem zeros inseridos à direita e o bit
+    de sinal é perdido, e assim o sinal do operando
+    não é preservado.
+    Deslocamentos a direita tem cópias do bit de sinal à esquerda,
+    e assim o sinal do operando é preservado.
+   </para>
+   <para>
+    Utilize parenteses para garantir a 
+    <link linkend="language.operators.precedence">precedence</link> desejada.
+    Por exemplo <literal>$a &amp; $b == true</literal> avalia primeiro
+    a equivalência e depois a operação de bits, enquanto que
+    <literal>($a &amp; $b) == true</literal> avalia primeiro a operação de bits e
+    só depois a equivalência.
+   </para>
+   <para>
+    Se ambos os operandos de <literal>&amp;</literal>, <literal>|</literal> e
+    <literal>^</literal> forem strings então a operação será
+    realizada nos valores ASCII dos caracteres das strings, e o
+    resultado final será uma string. Em todos os outros casos ambos os operandos serão
+    <link linkend="language.types.integer.casting">convertidos para inteiros</link>
+    e o resultado será um inteiro.
+   </para>
+   <para>
+    Se o operando de <literal>~</literal> for uma string então a
+    operação será realizada nos valores ASCII dos caracteres da 
+    string, e o resultado será uma string. Nos demais casos o operando e o
+    resultado serão tratados como inteiros.
+   </para>
+   <para>
+    Ambos os operandos e o resultado para <literal>&lt;&lt;</literal> e
+    <literal>&gt;&gt;</literal> sempre são tratados como inteiros.
+   </para>
+   <para>
+    <informalexample>
+     <para>
+      <literallayout>
+A configuração error_reporting ini utiliza valores posicionados em bits,
+fornecendo um exemplo real de ligar ou desligar
+bits. Mara mostrar todos os erros mas não os alertas
+coloque no php.ini:
+<userinput>E_ALL &amp; ~E_NOTICE</userinput>
+      </literallayout>
+     </para>
+     <para>
+      <literallayout>
+Isto funciona pos começa com E_ALL:
+<computeroutput>00000000000000000111011111111111</computeroutput>
+Depois pegando o valor de E_NOTICE...
+<computeroutput>00000000000000000000000000001000</computeroutput>
+... que invertido através de <literal>~</literal>:
+<computeroutput>11111111111111111111111111110111</computeroutput>
+... é finalmente mesclado via AND (&amp;) e assim o valor final
+se torna:
+<computeroutput>00000000000000000111011111110111</computeroutput>
+      </literallayout>
+     </para>
+     <para>
+      <literallayout>
+Outra forma de conseguir esse efeito seria através do XOR (<literal>^</literal>)
+e assim encontrar os bits que estão ativos apenas um ou outro:
+<userinput>E_ALL ^ E_NOTICE</userinput>
+      </literallayout>
+     </para>
+    </informalexample>
+   </para>
+   <para>
+    <informalexample>
+     <para>
+      <literallayout>
+error_reporting pode ser utilizado para demonstrar a ativação de bits.
+Para mostrar apenas erros e erros recuperáveis:
+<userinput>E_ERROR | E_RECOVERABLE_ERROR</userinput>
+      </literallayout>
+     </para>
+     <para>
+      <literallayout>
+Este processo combina E_ERROR
+<computeroutput>00000000000000000000000000000001</computeroutput>
+e
+<computeroutput>00000000000000000001000000000000</computeroutput>
+utilizando OR (<literal>|</literal>)
+para pegar os bits ativos de ambos os valores:
+<computeroutput>00000000000000000001000000000001</computeroutput>
+      </literallayout>
+     </para>
+    </informalexample>
+   </para>
+   <para>
+    <example>
+     <title>Operações bitwise AND, OR e XOR em inteiros</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+/*
+ * Ignore essa primeira parte,
+ * que é apenas para deixar a impressão mais limpa.
+ */
+
+$format = '(%1$2d = %1$04b) = (%2$2d = %2$04b)'
+        . ' %3$s (%4$2d = %4$04b)' . "\n";
+
+echo <<<EOH
+ ---------     ---------  -- ---------
+ result        value      op test
+ ---------     ---------  -- ---------
+EOH;
+
+
+/*
+ * Agora os exemplos
+ */
+
+$values = array(0, 1, 2, 4, 8);
+$test = 1 + 4;
+
+echo "\n Bitwise AND \n";
+foreach ($values as $value) {
+    $result = $value & $test;
+    printf($format, $result, $value, '&', $test);
+}
+
+echo "\n Bitwise Inclusive OR \n";
+foreach ($values as $value) {
+    $result = $value | $test;
+    printf($format, $result, $value, '|', $test);
+}
+
+echo "\n Bitwise Exclusive OR (XOR) \n";
+foreach ($values as $value) {
+    $result = $value ^ $test;
+    printf($format, $result, $value, '^', $test);
+}
+?>
+]]>
+     </programlisting>
+     &example.outputs;
+     <screen>
+<![CDATA[
+ ---------     ---------  -- ---------
+ result        value      op test
+ ---------     ---------  -- ---------
+ Bitwise AND
+( 0 = 0000) = ( 0 = 0000) & ( 5 = 0101)
+( 1 = 0001) = ( 1 = 0001) & ( 5 = 0101)
+( 0 = 0000) = ( 2 = 0010) & ( 5 = 0101)
+( 4 = 0100) = ( 4 = 0100) & ( 5 = 0101)
+( 0 = 0000) = ( 8 = 1000) & ( 5 = 0101)
+
+ Bitwise Inclusive OR
+( 5 = 0101) = ( 0 = 0000) | ( 5 = 0101)
+( 5 = 0101) = ( 1 = 0001) | ( 5 = 0101)
+( 7 = 0111) = ( 2 = 0010) | ( 5 = 0101)
+( 5 = 0101) = ( 4 = 0100) | ( 5 = 0101)
+(13 = 1101) = ( 8 = 1000) | ( 5 = 0101)
+
+ Bitwise Exclusive OR (XOR)
+( 5 = 0101) = ( 0 = 0000) ^ ( 5 = 0101)
+( 4 = 0100) = ( 1 = 0001) ^ ( 5 = 0101)
+( 7 = 0111) = ( 2 = 0010) ^ ( 5 = 0101)
+( 1 = 0001) = ( 4 = 0100) ^ ( 5 = 0101)
+(13 = 1101) = ( 8 = 1000) ^ ( 5 = 0101)
+]]>
+     </screen>
+    </example>
+   </para>
+   <para>
+    <example>
+     <title>Operações bitwise XOR em strings</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+echo 12 ^ 9; // Imprime '5'
+
+echo "12" ^ "9"; // Imprime caracter backspace (ASCII 8)
+                 // ('1' (ascii 49)) ^ ('9' (ascii 57)) = #8
+
+echo "hallo" ^ "hello"; // Imprime os valores ASCII #0 #4 #0 #0 #0
+                        // 'a' ^ 'e' = #4
+
+echo 2 ^ "3"; // Imprime 1
+              // 2 ^ ((int)"3") == 1
+
+echo "2" ^ 3; // Imprime 1
+              // ((int)"2") ^ 3 == 1
+?>
+]]>
+     </programlisting>
+    </example>
+   </para>
+   <para>
+    <example>
+     <title>Deslocamento de bits em inteiros</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+/*
+ * Here are the examples.
+ */
+
+echo "\n--- BIT SHIFT RIGHT ON POSITIVE INTEGERS ---\n";
+
+$val = 4;
+$places = 1;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'copy of sign bit shifted into left side');
+
+$val = 4;
+$places = 2;
+$res = $val >> $places;
+p($res, $val, '>>', $places);
+
+$val = 4;
+$places = 3;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'bits shift out right side');
+
+$val = 4;
+$places = 4;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'same result as above; can not shift beyond 0');
+
+
+echo "\n--- BIT SHIFT RIGHT ON NEGATIVE INTEGERS ---\n";
+
+$val = -4;
+$places = 1;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'copy of sign bit shifted into left side');
+
+$val = -4;
+$places = 2;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'bits shift out right side');
+
+$val = -4;
+$places = 3;
+$res = $val >> $places;
+p($res, $val, '>>', $places, 'same result as above; can not shift beyond -1');
+
+
+echo "\n--- BIT SHIFT LEFT ON POSITIVE INTEGERS ---\n";
+
+$val = 4;
+$places = 1;
+$res = $val << $places;
+p($res, $val, '<<', $places, 'zeros fill in right side');
+
+$val = 4;
+$places = (PHP_INT_SIZE * 8) - 4;
+$res = $val << $places;
+p($res, $val, '<<', $places);
+
+$val = 4;
+$places = (PHP_INT_SIZE * 8) - 3;
+$res = $val << $places;
+p($res, $val, '<<', $places, 'sign bits get shifted out');
+
+$val = 4;
+$places = (PHP_INT_SIZE * 8) - 2;
+$res = $val << $places;
+p($res, $val, '<<', $places, 'bits shift out left side');
+
+
+echo "\n--- BIT SHIFT LEFT ON NEGATIVE INTEGERS ---\n";
+
+$val = -4;
+$places = 1;
+$res = $val << $places;
+p($res, $val, '<<', $places, 'zeros fill in right side');
+
+$val = -4;
+$places = (PHP_INT_SIZE * 8) - 3;
+$res = $val << $places;
+p($res, $val, '<<', $places);
+
+$val = -4;
+$places = (PHP_INT_SIZE * 8) - 2;
+$res = $val << $places;
+p($res, $val, '<<', $places, 'bits shift out left side, including sign bit');
+
+
+/*
+ * Ignore this bottom section,
+ * it is just formatting to make output clearer.
+ */
+
+function p($res, $val, $op, $places, $note = '') {
+    $format = '%0' . (PHP_INT_SIZE * 8) . "b\n";
+
+    printf("Expression: %d = %d %s %d\n", $res, $val, $op, $places);
+
+    echo " Decimal:\n";
+    printf("  val=%d\n", $val);
+    printf("  res=%d\n", $res);
+
+    echo " Binary:\n";
+    printf('  val=' . $format, $val);
+    printf('  res=' . $format, $res);
+
+    if ($note) {
+        echo " NOTE: $note\n";
+    }
+
+    echo "\n";
+}
+?>
+]]>
+     </programlisting>
+     &example.outputs.32bit;
+     <screen>
+<![CDATA[
+
+--- BIT SHIFT RIGHT ON POSITIVE INTEGERS ---
+Expression: 2 = 4 >> 1
+ Decimal:
+  val=4
+  res=2
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000010
+ NOTE: copy of sign bit shifted into left side
+
+Expression: 1 = 4 >> 2
+ Decimal:
+  val=4
+  res=1
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000001
+
+Expression: 0 = 4 >> 3
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out right side
+
+Expression: 0 = 4 >> 4
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: same result as above; can not shift beyond 0
+
+
+--- BIT SHIFT RIGHT ON NEGATIVE INTEGERS ---
+Expression: -2 = -4 >> 1
+ Decimal:
+  val=-4
+  res=-2
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111110
+ NOTE: copy of sign bit shifted into left side
+
+Expression: -1 = -4 >> 2
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111111
+ NOTE: bits shift out right side
+
+Expression: -1 = -4 >> 3
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111111
+ NOTE: same result as above; can not shift beyond -1
+
+
+--- BIT SHIFT LEFT ON POSITIVE INTEGERS ---
+Expression: 8 = 4 << 1
+ Decimal:
+  val=4
+  res=8
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000001000
+ NOTE: zeros fill in right side
+
+Expression: 1073741824 = 4 << 28
+ Decimal:
+  val=4
+  res=1073741824
+ Binary:
+  val=00000000000000000000000000000100
+  res=01000000000000000000000000000000
+
+Expression: -2147483648 = 4 << 29
+ Decimal:
+  val=4
+  res=-2147483648
+ Binary:
+  val=00000000000000000000000000000100
+  res=10000000000000000000000000000000
+ NOTE: sign bits get shifted out
+
+Expression: 0 = 4 << 30
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out left side
+
+
+--- BIT SHIFT LEFT ON NEGATIVE INTEGERS ---
+Expression: -8 = -4 << 1
+ Decimal:
+  val=-4
+  res=-8
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111000
+ NOTE: zeros fill in right side
+
+Expression: -2147483648 = -4 << 29
+ Decimal:
+  val=-4
+  res=-2147483648
+ Binary:
+  val=11111111111111111111111111111100
+  res=10000000000000000000000000000000
+
+Expression: 0 = -4 << 30
+ Decimal:
+  val=-4
+  res=0
+ Binary:
+  val=11111111111111111111111111111100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out left side, including sign bit
+]]>
+     </screen>
+     &example.outputs.64bit;
+     <screen>
+<![CDATA[
+
+--- BIT SHIFT RIGHT ON POSITIVE INTEGERS ---
+Expression: 2 = 4 >> 1
+ Decimal:
+  val=4
+  res=2
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000010
+ NOTE: copy of sign bit shifted into left side
+
+Expression: 1 = 4 >> 2
+ Decimal:
+  val=4
+  res=1
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000001
+
+Expression: 0 = 4 >> 3
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out right side
+
+Expression: 0 = 4 >> 4
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: same result as above; can not shift beyond 0
+
+
+--- BIT SHIFT RIGHT ON NEGATIVE INTEGERS ---
+Expression: -2 = -4 >> 1
+ Decimal:
+  val=-4
+  res=-2
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111110
+ NOTE: copy of sign bit shifted into left side
+
+Expression: -1 = -4 >> 2
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111111
+ NOTE: bits shift out right side
+
+Expression: -1 = -4 >> 3
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111111
+ NOTE: same result as above; can not shift beyond -1
+
+
+--- BIT SHIFT LEFT ON POSITIVE INTEGERS ---
+Expression: 8 = 4 << 1
+ Decimal:
+  val=4
+  res=8
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000001000
+ NOTE: zeros fill in right side
+
+Expression: 4611686018427387904 = 4 << 60
+ Decimal:
+  val=4
+  res=4611686018427387904
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0100000000000000000000000000000000000000000000000000000000000000
+
+Expression: -9223372036854775808 = 4 << 61
+ Decimal:
+  val=4
+  res=-9223372036854775808
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=1000000000000000000000000000000000000000000000000000000000000000
+ NOTE: sign bits get shifted out
+
+Expression: 0 = 4 << 62
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out left side
+
+
+--- BIT SHIFT LEFT ON NEGATIVE INTEGERS ---
+Expression: -8 = -4 << 1
+ Decimal:
+  val=-4
+  res=-8
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111000
+ NOTE: zeros fill in right side
+
+Expression: -9223372036854775808 = -4 << 61
+ Decimal:
+  val=-4
+  res=-9223372036854775808
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1000000000000000000000000000000000000000000000000000000000000000
+
+Expression: 0 = -4 << 62
+ Decimal:
+  val=-4
+  res=0
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out left side, including sign bit
+]]>
+     </screen>
+    </example>
+   </para>
    <warning>
     <para>
-     Não desloque bits à direita maiores que 32 bits em sistemas 32 bits. E também
-     a esquerda no caso do resultado ser um número maior que 32 bits.
+     Deslocar inteiros em quantidade maior ou igual ao long inteiro
+     do sistema é um comportamento indefinido. Em outras palavras, não faça shifts
+     maiores que 31 em sistemas de 32 bits, e não faça shifts maiores que 63 em
+     sistems de 64 bits.
+    </para>
+    <para>
+     Utilize funções da extensão <link linkend="book.gmp">gmp</link> para manipulações
+     bitwise em números maiores que <literal>PHP_INT_MAX</literal>.
     </para>
    </warning>
+   <para>
+    See also
+    <function>pack</function>,
+    <function>unpack</function>,
+    <function>gmp_and</function>,
+    <function>gmp_or</function>,
+    <function>gmp_xor</function>,
+    <function>gmp_testbit</function>,
+    <function>gmp_clrbit</function>
+   </para>
   </sect1>
 
   <sect1 xml:id="language.operators.comparison">
@@ -492,7 +1248,7 @@ echo "2" ^ 3; // Imprime '1'
        <entry>Idêntico</entry>
        <entry>
         Verdadeiro (&true;) se $a é igual a $b, e eles são do mesmo
-        tipo (introduzido no PHP4).
+        tipo.
        </entry>
       </row>
       <row>
@@ -533,22 +1289,42 @@ echo "2" ^ 3; // Imprime '1'
        <entry>Maior ou igual</entry>
        <entry>Verdadeiro se $a é maior ou igual a $b.</entry>
       </row>
+      <row>
+       <entry>$a &lt;=&gt; $b</entry>
+       <entry>Spaceship (nave espacial)</entry>
+       <entry>
+        Um <type>integer</type> menor que, igual a ou maior que zero quando
+        <varname>$a</varname> é, respectivamente, menor que, igual a ou maior
+        que <varname>$b</varname>. Disponível a partir do PHP 7.
+       </entry>
+      </row>
+      <row>
+       <entry>$a ?? $b ?? $c</entry>
+       <entry>Null coalesce</entry>
+       <entry>
+        O primeiro operando da esquerda para direita que exista e não for &null;.
+        Retorna &null; se nenhum valor estiver definifo ou se todos nulos &null;. Disponível desde o PHP 7.
+       </entry>
+      </row>
      </tbody>
     </tgroup>
    </table>
    <para>
-    Se você comparar um inteiro com uma string, a string é
-    <link linkend="language.types.string.conversion">convertida para um número</link>.
-    Se você comparar 2 strings numéricas, elas serão comparadas como inteiras. Estas
-    regras também se aplicam ao comando
-    <link linkend="control-structures.switch">switch</link>.
+    Se comparar um número com uma string ou com strings
+    numéricas, cada string é
+    <link linkend="language.types.string.conversion">convertido para um número</link>
+    e então a comparação é realizada numericamente. Essas regras também se aplicam a instrução
+    <link linkend="control-structures.switch">switch</link>. As
+    conversões de tipo não são realizadas quando a comparação utilizada é === ou !== por
+    esse tipo de comparação envolver valores e tipos.
     <informalexample>
      <programlisting role="php">
 <![CDATA[
 <?php
 var_dump(0 == "a"); // 0 == 0 -> true
 var_dump("1" == "01"); // 1 == 1 -> true
-var_dump("1" == "1e0"); // 1 == 1 -> true
+var_dump("10" == "1e1"); // 10 == 10 -> true
+var_dump(100 == "1e2"); // 100 == 100 -> true
 
 switch ("a") {
 case 0:
@@ -560,6 +1336,56 @@ case "a": // nunca é alcançado porque "a" já foi combinado com 0
 }
 ?>
 ]]>
+     </programlisting>
+     <programlisting role="php">
+<![CDATA[
+<?php  
+// Integers
+echo 1 <=> 1; // 0
+echo 1 <=> 2; // -1
+echo 2 <=> 1; // 1
+ 
+// Floats
+echo 1.5 <=> 1.5; // 0
+echo 1.5 <=> 2.5; // -1
+echo 2.5 <=> 1.5; // 1
+ 
+// Strings
+echo "a" <=> "a"; // 0
+echo "a" <=> "b"; // -1
+echo "b" <=> "a"; // 1
+ 
+echo "a" <=> "aa"; // -1
+echo "zz" <=> "aa"; // 1
+ 
+// Arrays
+echo [] <=> []; // 0
+echo [1, 2, 3] <=> [1, 2, 3]; // 0
+echo [1, 2, 3] <=> []; // 1
+echo [1, 2, 3] <=> [1, 2, 1]; // 1
+echo [1, 2, 3] <=> [1, 2, 4]; // -1
+ 
+// Objects
+$a = (object) ["a" => "b"]; 
+$b = (object) ["a" => "b"]; 
+echo $a <=> $b; // 0
+ 
+$a = (object) ["a" => "b"]; 
+$b = (object) ["a" => "c"]; 
+echo $a <=> $b; // -1
+ 
+$a = (object) ["a" => "c"]; 
+$b = (object) ["a" => "b"]; 
+echo $a <=> $b; // 1
+ 
+// only values are compared
+$a = (object) ["a" => "b"]; 
+$b = (object) ["b" => "b"]; 
+echo $a <=> $b; // 1
+
+?>
+]]>
+      
      </programlisting>
     </informalexample>
    </para>
@@ -611,25 +1437,45 @@ case "a": // nunca é alcançado porque "a" já foi combinado com 0
         valor por valor (veja o seguinte exemplo)</entry>
       </row>
       <row>
-       <entry><type>array</type></entry>
-       <entry>qualquer</entry>
-       <entry><type>array</type> é sempre maior</entry>
-      </row>
-      <row>
        <entry><type>object</type></entry>
        <entry>qualquer</entry>
        <entry><type>object</type> é sempre maior</entry>
       </row>
+      <row>
+       <entry><type>array</type></entry>
+       <entry>qualquer</entry>
+       <entry><type>array</type> é sempre maior</entry>
+      </row>
      </tbody>
     </tgroup>
    </table>
+
+   <para>
+    <example>
+     <title>Comparações de boolean e null</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+// Bool e null são sempre comparados como booleanos
+var_dump(1 == TRUE);  // TRUE - same as (bool)1 == TRUE
+var_dump(0 == FALSE); // TRUE - same as (bool)0 == FALSE
+var_dump(100 < TRUE); // FALSE - same as (bool)100 < TRUE
+var_dump(-10 < FALSE);// FALSE - same as (bool)-10 < FALSE
+var_dump(min(-100, -10, NULL, 10, 100)); // NULL - (bool)NULL < (bool)-100 is FALSE < TRUE
+?>
+]]>
+     </programlisting>
+    </example>
+   </para>
+
+
    <para>
     <example>
      <title>Transcrição do padrão de comparação de array</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-// Arrays are compared like this with standard comparison operators
+// Arrays são comparados assim quando utilizando-se os operadores padrão
 function standard_array_compare($op1, $op2)
 {
     if (count($op1) < count($op2)) {
@@ -662,6 +1508,19 @@ function standard_array_compare($op1, $op2)
     <link linkend="language.types">Tipos</link>.
    </para>
 
+   <warning>
+    <title>Comparison of floating point numbers</title>
+
+    <para>
+     Por conta da forma que <type>float</type>s são representados internamente não
+     se deve testar dois <type>float</type>s com o comparador de igualdade.
+    </para>
+
+    <para>
+     Veja a documentação de <type>float</type> para mais detalhes.
+    </para>
+   </warning>
+
    <sect2 xml:id="language.operators.comparison.ternary">
     <title>Operador Ternário</title>
     <para>
@@ -685,15 +1544,21 @@ if (empty($_POST['action'])) {
 ]]>
       </programlisting>
      </example>
-      A expressão <literal>(expr1) ? (expr2) : (expr3)</literal>
-      é avaliada para <replaceable>expr2</replaceable> se
-      <replaceable>expr1</replaceable> é avaliada como &true;, ou
-      <replaceable>expr3</replaceable> se
-      <replaceable>expr1</replaceable> é avaliada como &false;.
+     A expressão <literal>(expr1) ? (expr2) : (expr3)</literal>
+     é avaliada para <replaceable>expr2</replaceable> se
+     <replaceable>expr1</replaceable> é avaliada como &true;, ou
+     <replaceable>expr3</replaceable> se
+     <replaceable>expr1</replaceable> é avaliada como &false;.
+    </para>
+    <para>
+     Desde o PHP 5.3 é possível deixar vazia a parte central do operador
+     ternário. A expressão <literal>expr1 ?: expr3</literal> retorna
+     <replaceable>expr1</replaceable> se <replaceable>expr1</replaceable>
+     verdade &true; e <replaceable>expr3</replaceable> do contrário.
     </para>
     <note>
      <simpara>
-      Note que o operador ternário é um comando, e ele não é
+      Note que o operador ternário é uma expressão, e ele não é
       avaliado para uma variável, mas para o resultado do comando. Isto é
       importante saber se você quer retornar uma variável por referência.
       O  comando <literal>return $var == 42 ? $a : $b;</literal> em uma
@@ -707,7 +1572,7 @@ if (empty($_POST['action'])) {
       comportamento do PHP quando usando mais de um operador ternário no
       único comando não é óbvio:
       <example>
-       <title>Não-óbvio comportamento do ternário</title>
+       <title>Comportamento não óbvio do ternário</title>
        <programlisting role="php">
 <![CDATA[
 <?php
@@ -741,9 +1606,16 @@ echo ((true ? 'true' : 'false') ? 't' : 'f');
     gerada por aquela expressão será ignorada.
    </simpara>
    <simpara>
+    Se você configurar uma função personalizada de manipulação de erros com
+    <function>set_error_handler</function> ela será
+    chamada, mas esta função personalizada pode (e deve) chamar <function>error_reporting</function>
+    que irá retornar 0 quando o erro disparado tiver sido precedido por uma @.
+   </simpara>
+   <simpara>
     Se o recurso <link linkend="ini.track-errors"><option>track_errors</option></link>
     estiver habilitado, qualquer mensagem de erro gerada pela expressão
-    será gravada na variável <varname>$php_errormsg</varname>.
+    será gravada na variável
+    <varname>$php_errormsg</varname>.
     Esta variável será sobrescrita em cada erro, assim verifique-a constantemente
     se você quiser usá-la.
    </simpara>
@@ -781,12 +1653,6 @@ $value = @$cache[$key];
     Veja também <function>error_reporting</function> e a seção do manual sobre
     <link linkend="ref.errorfunc">funções de Manipulação de Erros e Logging</link>.
    </simpara>
-   <note>
-    <para>
-     O prefixo de controle de erro "@" não desabilita mensagens
-     que são resultado de erros de interpretação (parse errors).
-    </para>
-   </note>
    <warning>
     <para>
      Atualmente, o operador de controle de erro "@" sempre desativa
@@ -825,6 +1691,12 @@ echo "<pre>$output</pre>";
      ou <function>shell_exec</function> está desabilitado.
     </para>
    </note>
+   <note>
+    <para>
+     Ao contrário de outras linguagens, crases não tem sentido especial
+     dentro de strings delimitadas por aspas.
+    </para>
+   </note>
    <para>
     Veja também a seção do manual sobre <link linkend="ref.exec">funções
     de execução de programas</link>, <function>popen</function>
@@ -842,8 +1714,9 @@ echo "<pre>$output</pre>";
    </para>
    <note>
     <simpara>
-     Os operadores incremento/decremento não afetam valores booleanos.
-     Decrementando valores &null; não há efeito também, mas incrementando resulta
+     Os operadores incremento/decremento afetam apenas números e strings.
+     Arrays, objetos e recursos não são afetados.
+     Decrementar &null; não gera efeitos, mas incrementar resulta
      em <literal>1</literal>.
     </simpara>
    </note>
@@ -913,18 +1786,33 @@ echo "Deve ser 4: " . $a . "<br />\n";
    </para>
    <para>
     O PHP segue a convenção Perl quando tratando operações aritmétricas
-    em variavéis caracter em vez da convenção C. Por exemplo, em Perl 'Z'+1 se torna
-    'AA', enquanto que no C 'Z'+1 se torna '[' ( ord('Z') == 90, ord('[') == 91 ).
+    em variavéis caracter em vez da convenção C. Por exemplo, em Perl
+    <literal>$a = 'Z'; $a++;</literal> transforma <literal>$a</literal> em <literal>'AA'</literal> enquanto que em C
+    <literal>a = 'Z'; a++;</literal> transforma <literal>a</literal> em <literal>'['</literal>
+    (valor ASCII de <literal>'Z'</literal> é 90, valor ASCII <literal>'['</literal> é 91).
     Note que variáveis caracter podem ser incrementadas mas não decrementadas e
     somente caracteres plain ASCII (a-z e A-Z) são suportados.
+    Incrementar ou decrementar outros caracteres não tem efeitos, a
+    string original não sendo modificada.
     <example>
      <title>Operações aritmétricas em variáveis caractere</title>
      <programlisting role="php">
 <![CDATA[
 <?php
-$i = 'W';
+echo '== Alphabets ==' . PHP_EOL;
+$s = 'W';
 for ($n=0; $n<6; $n++) {
-  echo ++$i . "\n";
+    echo ++$s . PHP_EOL;
+}
+// Digit characters behave differently
+echo '== Digits ==' . PHP_EOL;
+$d = 'A8';
+for ($n=0; $n<6; $n++) {
+    echo ++$d . PHP_EOL;
+}
+$d = 'A08';
+for ($n=0; $n<6; $n++) {
+    echo ++$d . PHP_EOL;
 }
 ?>
 ]]>
@@ -932,12 +1820,26 @@ for ($n=0; $n<6; $n++) {
      &example.outputs;
      <screen>
 <![CDATA[
+== Characters ==
 X
 Y
 Z
 AA
 AB
 AC
+== Digits ==
+A9
+B0
+B1
+B2
+B3
+B4
+A09
+A10
+A11
+A12
+A13
+A14
 ]]>
      </screen>
     </example>
@@ -1006,20 +1908,38 @@ AC
 <![CDATA[
 <?php
 
-// foo() nunca será chamada como estes operadores são short-circuit
+// --------------------
+// foo() nunca será chamada porque toda a expressão sofre curto circuito
+
 $a = (false && foo());
 $b = (true  || foo());
 $c = (false and foo());
 $d = (true  or  foo());
 
+// --------------------
 // "||" tem maior precedência que "or"
-$e = false || true; // $e will be assigned to (false || true) which is true
-$f = false or true; // $f will be assigned to false
+
+// O resultado da expressão (false || true) é atribuido em $e
+// Funciona como: ($e = (false || true))
+$e = false || true;
+
+// A constante false é atribuída a $f e então ignorada
+// Funciona como: (($f = false) or true)
+$f = false or true;
+
 var_dump($e, $f);
 
+// --------------------
 // "&&" tem maior precedência que "and"
-$g = true && false; // $g will be assigned to (true && false) which is false
-$h = true and false; // $h will be assigned to true
+
+// O resultado da expressão (true && false) é atribuído em $g
+// Funciona como: ($g = (true && false))
+$g = true && false;
+
+// A constante true é atribuída em $h e o falso é ignorado
+// Funciona como: (($h = true) and false)
+$h = true and false;
+
 var_dump($g, $h);
 ?>
 ]]>
@@ -1118,9 +2038,10 @@ $a .= "mundo!";     // agora $a contém "Olá mundo!"
     </tgroup>
    </table>
    <para>
-    O operador <literal>+</literal>
-    acrescenta os elementos da direita no array da esquerda, contudo,
-    chaves duplicadas NÃO são sobrescritas.
+    O operador <literal>+</literal> retorna o array à direta anexado
+    ao array da esquerda. Para chaves que existam nos dois arrays os elementos
+    do array à esquerda serão mantidos, os valores de mesma chave no
+    array da direita são ignorados.
    </para>
    <para>
     <informalexample>
@@ -1137,6 +2058,10 @@ var_dump($c);
 $c = $b + $a; // União de $b e $a
 echo "União de \$b e \$a: \n";
 var_dump($c);
+
+$a += $b; // União de $a += $b é $a e $b
+echo "União de \$a += \$b: \n";
+var_dump($a);
 ?>
 ]]>
      </programlisting>
@@ -1161,6 +2086,15 @@ array(3) {
   string(10) "framboesa"
   ["c"]=>
   string(6) "morango"
+}
+União de $a += $b:
+array(3) {
+  'a' =>
+  string(5) "maçã"
+  'b' =>
+  string(6) "banana"
+  'c' =>
+  string(6) "framboesa"
 }
 ]]>
     </screen>
@@ -1200,7 +2134,7 @@ var_dump($a === $b); // bool(false)
     <example>
      <title>Usando instanceof com classes</title>
      <programlisting role="php">
-     <![CDATA[
+<![CDATA[
 <?php
 class MyClass
 {
@@ -1231,7 +2165,7 @@ bool(false)
     <example>
      <title>Usando instanceof com herança</title>
      <programlisting role="php">
-     <![CDATA[
+<![CDATA[
 <?php
 class ParentClass
 {
@@ -1246,10 +2180,10 @@ $a = new MyClass;
 var_dump($a instanceof MyClass);
 var_dump($a instanceof ParentClass);
 ?>
-     ]]>
-    </programlisting>
-    &example.outputs;
-    <screen>
+]]>
+     </programlisting>
+     &example.outputs;
+     <screen>
 <![CDATA[
 bool(true)
 bool(true)
@@ -1291,7 +2225,7 @@ bool(true)
     <example>
      <title>Usando instanceof para classe</title>
      <programlisting role="php">
-     <![CDATA[
+ <![CDATA[
 <?php
 interface MyInterface
 {
@@ -1306,10 +2240,10 @@ $a = new MyClass;
 var_dump($a instanceof MyClass);
 var_dump($a instanceof MyInterface);
 ?>
-     ]]>
-    </programlisting>
-    &example.outputs;
-    <screen>
+]]>
+     </programlisting>
+     &example.outputs;
+     <screen>
 <![CDATA[
 bool(true)
 bool(true)
@@ -1323,7 +2257,7 @@ bool(true)
     <example>
      <title>Usando instanceof com outras variáveis</title>
      <programlisting role="php">
-     <![CDATA[
+<![CDATA[
 <?php
 interface MyInterface
 {
@@ -1342,7 +2276,7 @@ var_dump($a instanceof $b); // $b é umn objeto da classe MyClass
 var_dump($a instanceof $c); // $c é uma string 'MyClass'
 var_dump($a instanceof $d); // $d é uma string 'NotMyClass'
 ?>
-     ]]>
+]]>
     </programlisting>
     &example.outputs;
     <screen>
@@ -1350,6 +2284,35 @@ var_dump($a instanceof $d); // $d é uma string 'NotMyClass'
 bool(true)
 bool(true)
 bool(false)
+]]>
+     </screen>
+    </example>
+   </para>
+   <para>
+    instanceof não lança erros se a variável testada não for
+    um objeto, apenas retorna false. Constantes, entretanto, não são permitidas.
+    <example>
+     <title>Utilizando <literal>instanceof</literal> para testar outras variáveis</title>
+     <programlisting role="php">
+<![CDATA[
+<?php
+$a = 1;
+$b = NULL;
+$c = imagecreate(5, 5);
+var_dump($a instanceof stdClass); // inteiro
+var_dump($b instanceof stdClass); // NULL
+var_dump($c instanceof stdClass); // resource
+var_dump(FALSE instanceof stdClass);
+?>
+]]>
+    </programlisting>
+    &example.outputs;
+    <screen>
+<![CDATA[
+bool(false)
+bool(false)
+bool(false)
+PHP Fatal error:  instanceof expects an object instance, constant given
 ]]>
      </screen>
     </example>
@@ -1363,12 +2326,12 @@ bool(false)
     <example>
      <title>Evitando que o nome da classe seje verificado e fatal erros com instanceof no PHP 5.0</title>
      <programlisting role="php">
-     <![CDATA[
+<![CDATA[
 <?php
 $d = 'NotMyClass';
 var_dump($a instanceof $d); // não causa erro fatal
 ?>
-     ]]>
+]]>
     </programlisting>
     &example.outputs;
     <screen>
@@ -1382,7 +2345,8 @@ bool(false)
     O operador <literal>instanceof</literal> foi introduzido no PHP 5.
     Antes disso <function>is_a</function> era usado mas
     <function>is_a</function> tornou-se obsoleto pelo
-    <literal>instanceof</literal>.
+    <literal>instanceof</literal>. A partir do PHP 5.3.0
+    <function>is_a</function> não está mais obsoleta.
    </simpara>
    <para>
     Veja também <function>get_class</function> e
