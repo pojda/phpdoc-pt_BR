@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 330281 Maintainer: diegopires Status: ready --><!-- CREDITS: diegopires -->
+<!-- EN-Revision: 337282 Maintainer: diegopires Status: ready --><!-- CREDITS: diegopires,ae -->
 
 <sect1 xml:id="function.include" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>include</title>
@@ -203,13 +203,13 @@ include 'file.php';  // Works.
    <programlisting role="php">
 <![CDATA[
 <?php
-// won't work, evaluated as include(('vars.php') == 'OK'), i.e. include('')
-if (include('vars.php') == 'OK') {
+// won't work, evaluated as include(('vars.php') == TRUE), i.e. include('')
+if (include('vars.php') == TRUE) {
     echo 'OK';
 }
 
 // works
-if ((include 'vars.php') == 'OK') {
+if ((include 'vars.php') == TRUE) {
     echo 'OK';
 }
 ?>
