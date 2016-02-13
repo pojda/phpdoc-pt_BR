@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: 329092 Maintainer: ae Status: ready --><!-- CREDITS: kappu,felipe -->
+<!-- EN-Revision: 338425 Maintainer: ae Status: ready --><!-- CREDITS: kappu,felipe,ae -->
 <refentry xml:id="function.split" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>split</refname>
