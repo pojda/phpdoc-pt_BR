@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 337376 Maintainer: royopa Status: ready --><!-- CREDITS: royopa -->
+<!-- EN-Revision: 338392 Maintainer: royopa Status: ready --><!-- CREDITS: royopa,fabioluciano -->
 
 <phpdoc:exceptionref xml:id="class.error"
  xmlns="http://docbook.org/ns/docbook"
