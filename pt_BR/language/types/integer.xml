@@ -262,13 +262,13 @@ echo (int) ( (0.1+0.7) * 10 ); // imprime 7!
   <sect3 xml:id="language.types.integer.casting.from-other">
    <title>De outros tipos</title>
 
-    <caution>
-     <simpara>
-      O comportamento da conversão de um <type>inteiro</type> é indefinido de outros
-      tipos. <emphasis>Não confie</emphasis> em nenhum comportamento observado, pois ele pode
-      mudar sem aviso.
-     </simpara>
-    </caution>
+   <caution>
+    <simpara>
+     O comportamento da conversão de um <type>inteiro</type> é indefinido de outros
+     tipos. <emphasis>Não confie</emphasis> em nenhum comportamento observado, pois ele pode
+     mudar sem aviso.
+    </simpara>
+   </caution>
   </sect3>
 
  </sect2>
