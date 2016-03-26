@@ -1,84 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: n/a Maintainer: felipe Status: ready -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EN-Revision: 297028 Maintainer: fabioluciano Status: ready --><!-- CREDITS: felipe, fabioluciano -->
 <refentry xml:id="function.date-modify" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>date_modify</refname>
-  <refpurpose>Altera o timestamp</refpurpose>
+  <refpurpose>&Alias; <methodname>DateTime::modify</methodname></refpurpose>
  </refnamediv>
+
  <refsect1 role="description">
   &reftitle.description;
-  <methodsynopsis>
-   <type>void</type><methodname>date_modify</methodname>
-   <methodparam><type>DateTime</type><parameter>object</parameter></methodparam>
-   <methodparam><type>string</type><parameter>modify</parameter></methodparam>
-  </methodsynopsis>
-  <methodsynopsis>
-   <type>void</type><methodname>DateTime::modify</methodname>
-   <methodparam><type>string</type><parameter>modify</parameter></methodparam>
-  </methodsynopsis>
- </refsect1>
-
- <refsect1 role="parameters">
-  &reftitle.parameters;
   <para>
-   <variablelist>
-    <varlistentry>
-     <term><parameter>object</parameter></term>
-     <listitem>
-      <para>
-       Objeto DateTime.
-      </para>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
-     <term><parameter>modify</parameter></term>
-     <listitem>
-      <para>
-       String no formato aceito pela <function>strtotime</function>.
-      </para>
-     </listitem>
-    </varlistentry>
-   </variablelist>
-  </para>
- </refsect1>
-
- <refsect1 role="returnvalues">
-  &reftitle.returnvalues;
-  <para>
-   Retorna &null; em caso de sucesso ou &false; em falha.
-  </para>
- </refsect1>
-
- <refsect1 role="examples">
-  &reftitle.examples;
-  <para>
-   <example>
-    <title>Um exemplo da <function>date_modify</function></title>
-    <programlisting role="php">
-<![CDATA[
-<?php
-$date = new DateTime("2006-12-12");
-$date->modify("+1 day");
-echo $date->format("Y-m-d");
-?>
-]]>
-    </programlisting>
-    &example.outputs;
-    <screen>
-<![CDATA[
-2006-12-13
-]]>
-    </screen>
-   </example>
-  </para>
- </refsect1>
-
- <refsect1 role="seealso">
-  &reftitle.seealso;
-  <para>
-   <simplelist>
-    <member><function>strtotime</function></member>
-   </simplelist>
+   &info.function.alias; <methodname>DateTime::modify</methodname>
   </para>
  </refsect1>
 

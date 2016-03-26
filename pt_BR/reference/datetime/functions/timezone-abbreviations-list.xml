@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 330266 Maintainer: fabioluciano Status: ready --><!-- CREDITS: felipe, fabioluciano -->
-<refentry xml:id="function.date-date-set" xmlns="http://docbook.org/ns/docbook">
+<!-- EN-Revision: 297028 Maintainer: fabioluciano Status: ready --><!-- CREDITS: fabioluciano -->
+<refentry xml:id="function.timezone-abbreviations-list" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
-  <refname>date_date_set</refname>
-  <refpurpose>&Alias; <methodname>DateTime::setDate</methodname></refpurpose>
+  <refname>timezone_abbreviations_list</refname>
+  <refpurpose>&Alias; <methodname>DateTimeZone::listAbbreviations</methodname></refpurpose>
  </refnamediv>
 
  <refsect1 role="description">
   &reftitle.description;
   <para>
-   &info.function.alias; <methodname>DateTime::setDate</methodname>
+   &info.function.alias; <methodname>DateTimeZone::listAbbreviations</methodname>
   </para>
  </refsect1>
 
