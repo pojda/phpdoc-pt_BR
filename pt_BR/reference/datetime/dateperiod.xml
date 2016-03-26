@@ -72,8 +72,8 @@
     <varlistentry xml:id="dateperiod.constants.exclude-start-date">
      <term><constant>DatePeriod::EXCLUDE_START_DATE</constant></term>
      <listitem>
-      <para>Exclui a data inicial, utilizada em <function>DatePeriod::__construct</function>.</para>>
-     </listitem>
+      <para>Exclui a data inicial, utilizada em <function>DatePeriod::__construct</function>.</para>
+    </listitem>
     </varlistentry>
 
    </variablelist>
