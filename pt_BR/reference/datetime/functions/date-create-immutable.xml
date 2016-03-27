@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- EN-Revision: 330266 Maintainer: fabioluciano Status: ready --><!-- CREDITS: felipe, fabioluciano -->
-<refentry xml:id="function.date-date-set" xmlns="http://docbook.org/ns/docbook">
+<!-- EN-Revision: 330266 Maintainer: fabioluciano Status: ready --><!-- CREDITS: fabioluciano -->
+<refentry xml:id="function.date-create-immutable" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
-  <refname>date_date_set</refname>
-  <refpurpose>&Alias; <methodname>DateTime::setDate</methodname></refpurpose>
+  <refname>date_create_immutable</refname>
+  <refpurpose>&Alias; <methodname>DateTimeImmutable::__construct</methodname></refpurpose>
  </refnamediv>
 
  <refsect1 role="description">
   &reftitle.description;
   <para>
-   &info.function.alias; <methodname>DateTime::setDate</methodname>
+   &info.function.alias; <methodname>DateTimeImmutable::__construct</methodname>
   </para>
  </refsect1>
 
