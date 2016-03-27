@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< Updated upstream
-<!-- EN-Revision: 338227 Maintainer: royopa Status: ready --><!-- CREDITS: royopa, fabioluciano -->
-=======
 <!-- EN-Revision: 338826 Maintainer: royopa Status: ready --><!-- CREDITS: royopa, fabioluciano -->
->>>>>>> Stashed changes
 
 <phpdoc:exceptionref xml:id="class.divisionbyzeroerror"
  xmlns="http://docbook.org/ns/docbook"
