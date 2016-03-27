@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< Updated upstream
 <!-- EN-Revision: 338227 Maintainer: royopa Status: ready --><!-- CREDITS: royopa, fabioluciano -->
+=======
+<!-- EN-Revision: 338826 Maintainer: royopa Status: ready --><!-- CREDITS: royopa, fabioluciano -->
+>>>>>>> Stashed changes
 
 <phpdoc:exceptionref xml:id="class.divisionbyzeroerror"
  xmlns="http://docbook.org/ns/docbook"
@@ -42,7 +46,7 @@
 <!-- }}} -->
 
     <classsynopsisinfo role="comment">&InheritedMethods;</classsynopsisinfo>
-    <xi:include xpointer="xmlns(db=http://docbook.org/ns/docbook) xpointer(id('class.throwable')/db:refentry/db:refsect1[@role='description']/descendant::db:methodsynopsis[1])" />
+    <xi:include xpointer="xmlns(db=http://docbook.org/ns/docbook) xpointer(id('class.error')/db:refentry/db:refsect1[@role='description']/descendant::db:methodsynopsis[1])" />
    </classsynopsis>
 
 <!-- }}} -->
