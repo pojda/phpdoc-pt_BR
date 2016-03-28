@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: 297028 Maintainer: felipe Status: ready --><!-- CREDITS: surfmax -->
+<!-- EN-Revision: 333770 Maintainer: fabioluciano Status: ready --><!-- CREDITS: felipe, surfmax, fabioluciano -->
 <refentry xml:id="function.time" xmlns="http://docbook.org/ns/docbook">
  <refnamediv>
   <refname>time</refname>
