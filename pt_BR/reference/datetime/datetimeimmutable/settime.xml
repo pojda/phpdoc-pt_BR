@@ -4,7 +4,7 @@
 <refentry xml:id="datetimeimmutable.settime" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink">
  <refnamediv>
   <refname>DateTimeImmutable::setTime</refname>
-  <refpurpose>Define a hora</refpurpose>
+  <refpurpose>Define um horário</refpurpose>
  </refnamediv>
 
  <refsect1 role="description">
