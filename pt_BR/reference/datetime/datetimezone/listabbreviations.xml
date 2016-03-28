@@ -5,7 +5,7 @@
  <refnamediv>
   <refname>DateTimeZone::listAbbreviations</refname>
   <refname>timezone_abbreviations_list</refname>
-  <refpurpose>Retorna um fuso horário contendo o indicativo do horário de verão(dst), a diferença e o nome do fuso horário</refpurpose>
+  <refpurpose>Retorna um fuso horário contendo o indicativo do horário de verão(dst), o deslocamento e nome do fuso horário</refpurpose>
  </refnamediv>
  <refsect1 role="description">
   &reftitle.description;

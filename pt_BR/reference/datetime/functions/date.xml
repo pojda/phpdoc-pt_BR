@@ -244,12 +244,12 @@
           </row>
           <row>
            <entry><literal>O</literal></entry>
-           <entry>Diferença para Greenwich time (GMT) em horas</entry>
+           <entry>Deslocamento ao Horário de Greenwish (GMT) em horas</entry>
            <entry>Exemplo: <literal>+0200</literal></entry>
           </row>
           <row>
            <entry><literal>P</literal></entry>
-           <entry>Diferença para a hora de Greenwich (GMT) com dois pontos entre horas e minutos (adicionado no PHP 5.1.3)</entry>
+           <entry>Deslocamento ao Horário de Greenwish (GMT) com dois pontos entre horas e minutos (adicionado no PHP 5.1.3)</entry>
            <entry>Exemplo: <literal>+02:00</literal></entry>
           </row>
           <row>
@@ -259,7 +259,7 @@
           </row>
           <row>
            <entry><literal>Z</literal></entry>
-           <entry>Diferença em segudos do fuso horário. A diferença para fusos horários a oeste de UTC sempre será
+           <entry>Deslocamento, em segudos, do fuso horário. O deslocamento para fusos horários a oeste de UTC sempre será
            negativa, e para aqueles à leste de UTC sempre será positiva.</entry>
            <entry><literal>-43200</literal> até <literal>50400</literal></entry>
           </row>

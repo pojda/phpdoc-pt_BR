@@ -114,7 +114,7 @@
           </row>
           <row>
            <entry><literal>Z</literal></entry>
-           <entry>Diferença do fuso horário em segundos</entry>
+           <entry>Deslocamento do fuso horário em segundos</entry>
           </row>
          </tbody>
         </tgroup>

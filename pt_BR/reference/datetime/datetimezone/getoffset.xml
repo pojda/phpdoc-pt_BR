@@ -5,7 +5,7 @@
  <refnamediv>
   <refname>DateTimeZone::getOffset</refname>
   <refname>timezone_offset_get</refname>
-  <refpurpose>Retorna a diferença do fuso horário ao Horário de Greenwish (GMT)</refpurpose>
+  <refpurpose>Retorna o deslocamento do fuso horário ao Horário de Greenwish (GMT)</refpurpose>
  </refnamediv>
  <refsect1 role="description">
   &reftitle.description;
@@ -21,8 +21,8 @@
    <methodparam><type>DateTime</type><parameter>datetime</parameter></methodparam>
   </methodsynopsis>
   <para>
-   Esta função retorna a diferença do fuso horário ao Horário de Greenwish(GMT) para uma data/hora especificada
-   no parâmetro <parameter>datetime</parameter>. A diferença ao GMT é calculada
+   Esta função retorna o deslocamento do fuso horário ao Horário de Greenwish(GMT) para uma data/hora especificada
+   no parâmetro <parameter>datetime</parameter>. O deslocamento ao GMT é calculada
    com informações do fuso horário contida no objeto DateTimeZone utilizado.
   </para>
  </refsect1>
@@ -36,7 +36,7 @@
      <term><parameter>datetime</parameter></term>
      <listitem>
       <para>
-       DateTime que contêm a data/hora para computar a diferença.
+       DateTime que contêm a data/hora para computar o deslocamento.
       </para>
      </listitem>
     </varlistentry>
@@ -47,7 +47,7 @@
  <refsect1 role="returnvalues">
   &reftitle.returnvalues;
   <para>
-   Retorna a diferença do fuso horário em segundos em sucesso&return.falseforfailure;.
+   Retorna o deslocamento do fuso horário em segundos em sucesso&return.falseforfailure;.
   </para>
  </refsect1>
 

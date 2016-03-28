@@ -243,7 +243,7 @@
           </row>
           <row>
            <entry><literal>%z</literal></entry>
-           <entry>A diferença do fuso horário. Não implementado como descrito no
+           <entry>O deslocamento do fuso horário. Não implementado como descrito no
            Windows. Veja mais informações a seguir.</entry>
            <entry>Exemplo: <literal>-0500</literal> para hora à leste dos EUA</entry>
           </row>
@@ -331,7 +331,7 @@
        </para>
        <para>
         Os modificadores <literal>%z</literal> e <literal>%Z</literal>
-        retornam o nome do fuso horário em vez da diferença ou abreviação do mesmo.
+        retornam o nome do fuso horário em vez do deslocamento ou abreviação do mesmo.
        </para>
       </warning>
       <warning>
