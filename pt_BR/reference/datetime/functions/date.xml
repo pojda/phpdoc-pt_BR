@@ -94,7 +94,7 @@
           </row>
           <row>
            <entry><literal>z</literal></entry>
-           <entry>O dia do ano (começando do 0)</entry>
+           <entry>O dia do ano (iniciando em 0)</entry>
            <entry><literal>0</literal> through <literal>365</literal></entry>
           </row>
           <row>
@@ -138,7 +138,7 @@
            <entry><literal>28</literal> through <literal>31</literal></entry>
           </row>
           <row>
-           <entry align="center"><emphasis>Year</emphasis></entry>
+           <entry align="center"><emphasis>Ano</emphasis></entry>
            <entry>---</entry>
            <entry>---</entry>
           </row>
