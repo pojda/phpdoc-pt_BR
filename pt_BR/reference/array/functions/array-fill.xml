@@ -109,7 +109,7 @@
  <refsect1 role="examples">
   &reftitle.examples;
   <para>
-   <example>
+   <example xml:id="function.array-fill.example.basic">
     <title>Exemplo da função <function>array_fill</function></title>
     <programlisting role="php">
 <![CDATA[
