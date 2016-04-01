@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- EN-Revision: 297028 Maintainer: felipe Status: ready -->
+<!-- EN-Revision: 330340 Maintainer: fabioluciano Status: ready --><!-- CREDITS: felipe, fabioluciano -->
 
 <book xml:id="book.var" xmlns="http://docbook.org/ns/docbook">
+ <?phpdoc extension-membership="core" ?>
  <title>Manipulação de variável</title>
 
  <preface xml:id="intro.var">
   &reftitle.intro;
   <para>
-   Para maiores informações do comportamento de variáveis veja
-   <link linkend="language.variables">Variavéis</link> localizada na seção
+   Para maiores informações do comportamento de variáveis
+   veja <link linkend="language.variables">Variavéis</link> localizada na seção
    do manual <link linkend="langref">Referências da Linguagem</link>.
   </para>
  </preface>
